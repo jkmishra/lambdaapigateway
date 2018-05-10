@@ -57,7 +57,7 @@ task buildZip(type: Zip) {
 
 build.dependsOn buildZip
 checkstyle {
-    configFile = new File("../lambdaapigateway/checkstyle.xml");
+    configFile = new File("../lambdaapigatewayFreestyle/checkstyle.xml");
     toolVersion = "6.8"
 }
 
