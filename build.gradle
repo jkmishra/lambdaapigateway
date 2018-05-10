@@ -15,6 +15,10 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 //apply plugin: 'eu.appsatori.fatjar'
+//
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -22,10 +26,16 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	maven {
+          url "http://sevntu-checkstyle.github.com/sevntu.checkstyle/maven2"
+      }
 }
 
 
 dependencies {
+	checkstyle "com.github.sevntu.checkstyle:sevntu-checks:1.13.4",
+               "com.github.sevntu.checkstyle:sevntu-checkstyle-maven-plugin:1.13.4"
+    testCompile 'net.saliman:gradle-cobertura-plugin:2.5.4'
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.boot:spring-boot-starter-web')
@@ -46,4 +56,55 @@ task buildZip(type: Zip) {
 }
 
 build.dependsOn buildZip
+checkstyle {
+    configFile = new File("../lambdaapigateway/config/dev.xml");
+    toolVersion = "6.8"
+}
 
+configurations {
+    checkstyle
+}
+
+findbugs{
+    ignoreFailures=true
+    findbugsTest.enabled=false
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+tasks.withType(Pmd){
+    reports{
+        xml.enabled=true
+        html.enabled=true
+    }
+}
+
+// pmd with rule set
+pmd {
+   ignoreFailures = true
+    pmdTest.enabled=false
+        ruleSets = [
+            'java-basic',
+            'java-braces',
+            'java-clone',
+            'java-codesize',
+            'java-comments',
+            'java-controversial',
+            'java-coupling',
+            'java-design',
+            'java-empty',
+            'java-finalizers',
+            'java-imports',
+            'java-optimizations',
+            'java-strictexception',
+            'java-strings',
+            'java-typeresolution',
+            'java-unnecessary',
+            'java-unusedcode'
+    ]
+}
