@@ -1,0 +1,11 @@
+---
+healthCheckHealthyThreshold: 3
+healthCheckInterval: 10
+healthCheckString: "HTTP:/hcheck"
+healthCheckTimeout: 5
+healthCheckUnhealthyThreshold: 3
+listener:
+  port: 8080
+  protocol: HTTP
+name: productsapi-alb-v1
+scheme: internal
