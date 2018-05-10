@@ -5,9 +5,10 @@ package com.example.lambdaapigateway;
  * May 10, 2018 3:05:02 PM
  */
 public class TestResp {
+	
 	private String resp;
 
-	public TestResp(String name) {
+	public TestResp(final String name) {
 		this.resp = name;
 	}
 
@@ -15,7 +16,7 @@ public class TestResp {
 		return resp;
 	}
 
-	public void setResp(String resp) {
+	public void setResp(final String resp) {
 		this.resp = resp;
 	}
 
