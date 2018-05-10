@@ -36,6 +36,7 @@ dependencies {
 	checkstyle "com.github.sevntu.checkstyle:sevntu-checks:1.13.4",
                "com.github.sevntu.checkstyle:sevntu-checkstyle-maven-plugin:1.13.4"
     testCompile 'net.saliman:gradle-cobertura-plugin:2.5.4'
+	compile group: 'com.google.code.findbugs', name: 'bcel-findbugs', version: '6.0'    
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.boot:spring-boot-starter-web')
