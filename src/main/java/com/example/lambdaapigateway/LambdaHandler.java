@@ -11,14 +11,23 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+/**
+ * @author jugul.mishra
+ * May 10, 2018 3:05:02 PM
+ */
+
 public class LambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyResponse> {
 	private SpringLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
-	private Logger log = LoggerFactory.getLogger(LambdaHandler.class);
+	private final Logger log = LoggerFactory.getLogger(LambdaHandler.class);
 
-	public AwsProxyResponse handleRequest(AwsProxyRequest awsProxyRequest, Context context) {
+	public LambdaHandler(){
+		
+	}
+	// this method register with dispatcher servlet and delegate every request
+	public AwsProxyResponse handleRequest(final AwsProxyRequest awsProxyRequest, final Context context) {
 		if (handler == null) {
 			try {
-				LambdaLogger logger = context.getLogger();
+				final LambdaLogger logger = context.getLogger();
 				handler = SpringLambdaContainerHandler.getAwsProxyHandler(LambdaapigatewayApplication.class);
 
 				logger.log(String.format("Remaining time for this lambda -- %s",
